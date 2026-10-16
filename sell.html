@@ -103,6 +103,7 @@
   <nav class="hd-menu" aria-label="주 메뉴">
     <ul>
       <li><a href="sell.html" data-nav="sell">내폰팔기</a></li>
+      <li><a href="buy.html" data-nav="buy">내폰사기</a></li>
       <li><a href="mvno.html" data-nav="mvno">알뜰폰</a></li>
       <li><a href="prepaid.html" data-nav="prepaid">선불폰</a></li>
       <li><a href="reviews.html" data-nav="reviews">고객후기</a></li>
@@ -124,17 +125,9 @@
     <div class="counter"><span class="dot" aria-hidden="true"></span>오늘 접수 가능 · 당일 입금 원칙<small>왕복 택배비 무료</small></div>
   </div>
 
-  <div class="car hero-car" id="heroCar" aria-label="매입 예시">
-    <div class="car-track">
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">갤럭시 S24 울트라</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>650,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">아이폰 15 Pro</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>780,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">갤럭시 Z플립5</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>350,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">아이폰 14 Pro</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>520,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">갤럭시 S23</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>330,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">아이폰 13</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>330,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">갤럭시 Z폴드5</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>600,000원</b><span class="ex">예시</span></span></a>
-      <a class="pcard" href="#price"><span class="tag sell">내폰팔기 완료</span><b class="model">아이폰 SE3</b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">최고 매입가<b>150,000원</b><span class="ex">예시</span></span></a>
-    </div>
+  <div class="car hero-car" id="heroCar" aria-label="매입 예시" data-hero="buyback">
+    <div class="car-track"></div>
+    <template id="tpl-pcard"><a class="pcard" href="#"><span class="tag sell"></span><b class="model"></b><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price"><span class="lbl"></span><b></b><span class="ex">예시</span></span></a></template>
   </div>
 
   <div class="container">
@@ -150,30 +143,18 @@
   <div class="container">
     <div class="center"><span class="pill pink">예시 매입가</span></div>
     <h2 class="sec-title" style="margin-top:20px">내 폰, 얼마인지<br>먼저 확인해 보세요</h2>
-    <p class="sec-sub">모델명을 검색하거나 제조사를 골라 보세요. 표시된 금액은 S등급 기준 예시이며, 실제 매입가는 검수 후 최종 견적으로 안내드립니다.</p>
+    <p class="sec-sub">모델명을 검색하거나 제조사를 골라 보세요. 표시된 금액은 S등급 기준 예시이며, 실제 매입가는 검수 후 최종 견적으로 안내드립니다. <span class="upd" data-buyback-updated></span></p>
     <div data-filter="modelGrid">
       <label class="search"><svg class="ic"><use href="#i-search"/></svg><span class="sr">모델 검색</span><input type="search" data-search placeholder="모델명 검색 (예: S24, 아이폰 15)" autocomplete="off"></label>
       <div class="tabs pink" role="tablist" aria-label="제조사">
         <button type="button" class="on" data-fkey="brand" data-fval="all">전체</button>
-        <button type="button" data-fkey="brand" data-fval="samsung">삼성 갤럭시</button>
-        <button type="button" data-fkey="brand" data-fval="apple">애플 아이폰</button>
-        <button type="button" data-fkey="brand" data-fval="etc">기타</button>
+        <button type="button" data-fkey="brand" data-fval="삼성">삼성 갤럭시</button>
+        <button type="button" data-fkey="brand" data-fval="애플">애플 아이폰</button>
+        <button type="button" data-fkey="brand" data-fval="기타">기타</button>
       </div>
     </div>
-    <div class="mgrid" id="modelGrid">
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 s24 울트라 galaxy s24 ultra 삼성"><span class="brand">삼성</span><b class="model">갤럭시 S24 울트라</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>650,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 s24 galaxy s24 삼성"><span class="brand">삼성</span><b class="model">갤럭시 S24</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>420,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 s23 galaxy s23 삼성"><span class="brand">삼성</span><b class="model">갤럭시 S23</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>330,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 z플립5 플립 galaxy z flip5 삼성"><span class="brand">삼성</span><b class="model">갤럭시 Z플립5</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>350,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 z폴드5 폴드 galaxy z fold5 삼성"><span class="brand">삼성</span><b class="model">갤럭시 Z폴드5</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>600,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="samsung" data-search="갤럭시 a54 galaxy a54 삼성"><span class="brand">삼성</span><b class="model">갤럭시 A54</b><span class="cap">128GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>120,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="apple" data-search="아이폰 15 pro 프로 iphone 15 pro 애플"><span class="brand">애플</span><b class="model">아이폰 15 Pro</b><span class="cap">256GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>780,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="apple" data-search="아이폰 15 iphone 15 애플"><span class="brand">애플</span><b class="model">아이폰 15</b><span class="cap">128GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>600,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="apple" data-search="아이폰 14 pro 프로 iphone 14 pro 애플"><span class="brand">애플</span><b class="model">아이폰 14 Pro</b><span class="cap">128GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>520,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="apple" data-search="아이폰 13 iphone 13 애플"><span class="brand">애플</span><b class="model">아이폰 13</b><span class="cap">128GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>330,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="apple" data-search="아이폰 se3 se 3세대 iphone se 애플"><span class="brand">애플</span><b class="model">아이폰 SE3</b><span class="cap">64GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>150,000원<span class="ex">예시</span></b></span></a>
-      <a class="mcard" href="#apply" data-card data-brand="etc" data-search="픽셀 8 pixel 8 구글"><span class="brand">구글</span><b class="model">픽셀 8</b><span class="cap">128GB 기준</span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b>300,000원<span class="ex">예시</span></b></span></a>
-    </div>
+    <div class="mgrid" id="modelGrid"></div>
+    <template id="tpl-mcard"><a class="mcard" href="#apply" data-card><span class="brand"></span><b class="model"></b><span class="cap"></span><span class="fig"><svg class="ic"><use href="#i-device"/></svg></span><span class="price">S등급 최고 매입가<b><span class="amt"></span><span class="ex">예시</span></b></span></a></template>
     <div class="empty" data-empty="modelGrid">찾으시는 모델이 목록에 없나요? 목록에 없는 기종도 카카오톡으로 모델명과 용량을 보내 주시면 예상 견적을 안내드립니다.</div>
     <div class="center" style="margin-top:48px"><a class="btn-cta pink" href="#apply">이 가격대로 판매 신청하기</a></div>
     <p class="cap-note">* 금액은 예시이며 시세 변동, 기기 상태(등급), 구성품 여부에 따라 달라집니다. 목록에 없는 모델도 상담 가능합니다.</p>
@@ -378,7 +359,7 @@
 
 <!-- 하단 고정 CTA 바 -->
 <div class="fixbar" aria-label="빠른 이동">
-  <a class="b-plan" href="mvno.html">알뜰폰·선불폰</a>
+  <a class="b-buy" href="buy.html">내폰사기</a>
   <a class="b-sell" href="sell.html#price">내폰팔기</a>
 </div>
 <nav class="m-tab" aria-label="모바일 하단 메뉴">
@@ -395,6 +376,7 @@
     <div class="head"><a class="logo" href="index.html">퐁퐁폰</a><button class="close" type="button" data-close aria-label="메뉴 닫기"><svg class="ic"><use href="#i-close"/></svg></button></div>
     <nav>
       <a href="sell.html" data-nav="sell">내폰팔기</a>
+      <a href="buy.html" data-nav="buy">내폰사기</a>
       <a href="mvno.html" data-nav="mvno">알뜰폰</a>
       <a href="prepaid.html" data-nav="prepaid">선불폰</a>
       <a href="reviews.html" data-nav="reviews">고객후기</a>
@@ -403,13 +385,14 @@
       <a href="about.html" data-nav="about">퐁퐁폰 이야기</a>
     </nav>
     <div class="d-cta">
+      <a class="b-buy" href="buy.html">내폰사기</a>
       <a class="b-sell" href="sell.html#price">내폰팔기</a>
-      <a class="b-plan" href="mvno.html">알뜰폰·선불폰</a>
     </div>
     <div class="d-cs">고객센터 · 카카오톡 상담<b>0000-0000</b></div>
   </div>
 </div>
 
+<script src="data/buyback.js"></script>
 <script src="assets/main.js"></script>
 </body>
 </html>

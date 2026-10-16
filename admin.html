@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>퐁퐁폰 관리자</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="admin" data-page="admin">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M12.5 7.5l4 4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14.5 4.6M4 12a8 8 0 0 1 14.5-4.6"/><path d="M4 20v-5h5M20 4v5h-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-device" viewBox="0 0 48 64"><rect x="4" y="2" width="40" height="60" rx="7"/><rect x="9" y="8" width="30" height="46" rx="3"/><path d="M18 5h12"/></symbol>
+  </defs>
+</svg>
+
+<!-- 로그인 화면 -->
+<div class="admin-login" id="loginView">
+  <div class="admin-card">
+    <div class="admin-brand">퐁퐁폰 <span>관리자</span></div>
+    <p class="admin-desc">GitHub 토큰으로 들어가면 내폰사기 상품, 내폰팔기 매입시세, 알뜰폰 · 선불폰 요금제를 바로 고칠 수 있습니다. 저장하면 1~2분 뒤 사이트에 반영됩니다.</p>
+    <form id="loginForm" autocomplete="off" novalidate>
+      <label class="admin-field"><span>GitHub 토큰 <em class="req">*</em></span><input type="password" id="tokenInput" placeholder="github_pat_ 로 시작하는 토큰을 붙여넣기" autocomplete="off" spellcheck="false" required></label>
+      <label class="admin-check"><input type="checkbox" id="rememberChk"> 이 브라우저에 저장 (내 컴퓨터에서만 체크하세요)</label>
+      <button class="admin-btn primary" type="submit" id="loginBtn">입장하기</button>
+      <p class="admin-err" id="loginErr" hidden></p>
+    </form>
+    <details class="admin-details" id="repoDetails">
+      <summary>저장소 설정 (보통 바꿀 필요 없음)</summary>
+      <div class="admin-grid3">
+        <label class="admin-field"><span>소유자 (owner)</span><input id="ownerInput" spellcheck="false"></label>
+        <label class="admin-field"><span>저장소 (repo)</span><input id="repoInput" spellcheck="false"></label>
+        <label class="admin-field"><span>브랜치</span><input id="branchInput" spellcheck="false"></label>
+      </div>
+    </details>
+    <div class="admin-guide">
+      <b>토큰 발급 방법 (처음 한 번만)</b>
+      <ol>
+        <li>GitHub 로그인 후 주소창에 <code>github.com/settings/tokens</code> 입력</li>
+        <li><code>Fine-grained tokens</code> 탭에서 <code>Generate new token</code> 클릭 (이름은 "퐁퐁폰 관리자" 등 자유)</li>
+        <li>Repository access 에서 <code>Only select repositories</code> 를 고르고 <code>pongpongphone</code> 만 체크</li>
+        <li>Permissions 의 Repository permissions 에서 <code>Contents</code> 를 <code>Read and write</code> 로 변경</li>
+        <li>만들어진 토큰을 복사해 위 칸에 붙여넣기 (토큰은 다시 볼 수 없으니 안전한 곳에 보관)</li>
+      </ol>
+      <p>토큰은 이 브라우저 안에만 저장되고 GitHub 외의 다른 곳으로는 보내지 않습니다. 공용 PC에서는 저장 체크를 끄고 쓰세요.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 화면 -->
+<div class="admin-app" id="appView" hidden>
+  <header class="admin-top">
+    <div class="admin-brand">퐁퐁폰 <span>관리자</span></div>
+    <span class="admin-repo" id="repoLabel"></span>
+    <div class="admin-top-actions">
+      <a class="admin-btn ghost" href="index.html" target="_blank" rel="noopener">사이트 보기</a>
+      <button class="admin-btn ghost" type="button" id="logoutBtn">로그아웃 (토큰 삭제)</button>
+    </div>
+  </header>
+  <div class="admin-body">
+    <nav class="admin-tabs" aria-label="관리 메뉴">
+      <button type="button" class="on" data-atab="products">상품 <small>내폰사기</small></button>
+      <button type="button" data-atab="buyback">매입시세 <small>내폰팔기</small></button>
+      <button type="button" data-atab="plans">요금제 <small>알뜰폰 · 선불폰</small></button>
+    </nav>
+    <main class="admin-main" id="adminMain"></main>
+  </div>
+</div>
+
+<!-- 편집 모달 -->
+<div class="admin-modal" id="editModal" aria-hidden="true">
+  <div class="dim" data-eclose></div>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="head"><b id="editTitle">수정</b><button class="admin-btn sm" type="button" data-eclose aria-label="닫기"><svg class="ic"><use href="#i-close"/></svg></button></div>
+    <div class="body" id="editBody"></div>
+    <div class="foot">
+      <button class="admin-btn" type="button" data-eclose>취소</button>
+      <button class="admin-btn primary" type="button" id="editApply">적용</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/admin.js"></script>
+</body>
+</html>
